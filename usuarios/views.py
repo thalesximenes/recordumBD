@@ -44,29 +44,34 @@ class cadastro(APIView):
         if user.exists():
             return Response({"response":"Usuário já existente"})
         
-        #try: 
-        user = User.objects.create_user(username = username,
-                                        first_name = first_name,
-                                        last_name = last_name,
-                                        email=email,
-                                        password=senha)                              
-        user.save()
+        try: 
+            user = User.objects.create_user(username = username,
+                                            first_name = first_name,
+                                            last_name = last_name,
+                                            email=email,
+                                            password=senha)                              
+            user.save()
 
-        usuario = User.objects.get(username = username)
-        
-        avaliacaoSerializer =  InformacoesSerializer(data = {
-                                                            "usuario":usuario,
-                                                            "escolaridade":escolaridade,
-                                                            "vestibulares":vestibulares,
-                                                            "curso":curso,
-                                                            "universidade":universidade
-                                                            })
+            usuario = User.objects.get(username = username)
+            
+            informacao = Informacoe.objects.create_user(usuario = usuario, escolaridade = escolaridade, vestibulares = vestibulares, curso = curso, universidade = universidade)
 
-        if avaliacaoSerializer.is_valid():
-            avaliacaoSerializer.save()  
-            return Response({"response":"Usuário Cadastrado"})
-    
-        #except:
-        return Response({"response":avaliacaoSerializer.is_valid()})
+            informacao.save()
+            
+            avaliacaoSerializer =  InformacoesSerializer(data = {
+                                                                "usuario":usuario.id,
+                                                                "escolaridade":escolaridade,
+                                                                "vestibulares":vestibulares,
+                                                                "curso":curso,
+                                                                "universidade":universidade
+                                                                })
+
+            if avaliacaoSerializer.is_valid():
+                avaliacaoSerializer.save()  
+                return Response(avaliacaoSerializer.data, status = status.HTTP_201_CREATED)
+
+            return Response(avaliacaoSerializer.errors) 
+        except:
+            return Response(avaliacaoSerializer.errors) 
 
 # Create your views here.

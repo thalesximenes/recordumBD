@@ -10,7 +10,7 @@ class Informacoe(models.Model):
     universidade = models.CharField(max_length=100)
 
     def __str__(self) -> str:
-        return self.nome
+        return self.vestibulares
 
 class InformacoesSerializer(serializers.ModelSerializer):
     class Meta:
