@@ -1,0 +1,1 @@
+gunicorn recordum.wsgi --log-file -
