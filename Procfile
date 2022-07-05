@@ -1,1 +1,1 @@
-gunicorn recordum.wsgi --log-file -
+web: gunicorn recordum.wsgi --log-file -
