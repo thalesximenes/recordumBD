@@ -54,24 +54,18 @@ class cadastro(APIView):
 
             usuario = User.objects.get(username = username)
             
-            informacao = Informacoe.objects.create_user(usuario = usuario, escolaridade = escolaridade, vestibulares = vestibulares, curso = curso, universidade = universidade)
+            informacao = Informacoe(
+                usuario = usuario,
+                escolaridade = escolaridade,
+                vestibulares = vestibulares,
+                curso = curso,
+                universidade = universidade
+            )
 
             informacao.save()
-            
-            avaliacaoSerializer =  InformacoesSerializer(data = {
-                                                                "usuario":usuario.id,
-                                                                "escolaridade":escolaridade,
-                                                                "vestibulares":vestibulares,
-                                                                "curso":curso,
-                                                                "universidade":universidade
-                                                                })
 
-            if avaliacaoSerializer.is_valid():
-                avaliacaoSerializer.save()  
-                return Response(avaliacaoSerializer.data, status = status.HTTP_201_CREATED)
-
-            return Response(avaliacaoSerializer.errors) 
+            return Response(status = status.HTTP_201_CREATED)
         except:
-            return Response(avaliacaoSerializer.errors) 
+          return Response(status = status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
 # Create your views here.

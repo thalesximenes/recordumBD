@@ -13,7 +13,6 @@ class EixosListView(APIView):
         serializer = EixosSerializer(eixos, many = True)
         return Response(serializer.data)
 
-
 class DisciplinasListView(APIView):
     def get(self, request):
         disciplinas = Disciplinas.objects.all()
@@ -32,6 +31,18 @@ class DisciplinasDetailView(APIView):
         serializer = DisciplinasSerializer(disciplina, many = True)
         return Response(serializer.data)
 
+class TemasListView(APIView):
+    def get_tema(self, fk):
+        try:
+            return Temas.objects.filter(disciplina = fk)
+        except Temas.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, fk):
+        tema = self.get_tema(fk)
+        serializer = TemasSerializer(tema, many = True)
+        return Response(serializer.data)
+
 class MapasTextoListView(APIView):
     def get(self, request):
         mapas = MapasTexto.objects.all()
@@ -39,6 +50,18 @@ class MapasTextoListView(APIView):
         return Response(serializer.data)
 
 class AulasListView(APIView):
+    def get_aulas(self, fk):
+        try:
+            return Aulas.objects.filter(tema = fk)
+        except Aulas.DoesNotExist:
+            raise Http404
+
+    def get(self, request, fk):
+        aulas = self.get_aulas(fk)
+        serializer = AulasSerializer(aulas, many = True)
+        return Response(serializer.data)
+
+class AulasDetailView(APIView):
     def get_aulas(self, fk):
         try:
             return Aulas.objects.filter(disciplina = fk)
@@ -49,19 +72,6 @@ class AulasListView(APIView):
         aulas = self.get_aulas(fk)
         serializer = AulasSerializer(aulas, many = True)
         return Response(serializer.data)
-
-class TemasListView(APIView):
-    def get_aulas_tema(self, fk, tema):
-        try:
-            return Aulas.objects.filter(disciplina = fk, tema = tema)
-        except Aulas.DoesNotExist:
-            raise Http404
-    
-    def get(self, request, fk, tema):
-        aulas = self.get_aulas_tema(fk, tema)
-        serializer = AulasSerializer(aulas, many = True)
-        return Response(serializer.data)
-
 
 class AvaliacoesListView(APIView):
     def get_avaliacoes(self, fk):

@@ -28,7 +28,7 @@ class DisciplinasSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class MapasTexto(models.Model):
-    texto = models.CharField(max_length=100)
+    texto = models.CharField(max_length=500)
     
     def __str__(self):
         return self.texto
@@ -38,9 +38,21 @@ class MapasTextosSerializer(serializers.ModelSerializer):
         model = MapasTexto
         fields = "__all__"
 
+class Temas(models.Model):
+    tema = models.CharField(max_length = 100)
+    disciplina = models.ForeignKey(Disciplinas, on_delete = models.DO_NOTHING)
+
+    def __str__(self) -> str:
+        return self.tema
+
+class TemasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Temas
+        fields = "__all__"
+
 class Aulas(models.Model):
     nome = models.CharField(max_length = 100)
-    tema = models.CharField(max_length = 100)
+    tema = models.ForeignKey(Temas, on_delete = models.DO_NOTHING, blank=True)
     aula = models.FileField(upload_to = "aulas", blank=True)
     mapa = models.ImageField(upload_to = "mapa_Aula")
     mapasTexto = models.ManyToManyField(MapasTexto)
@@ -75,3 +87,4 @@ class UltimaSessaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UltimaSessao
         fields = "__all__"
+        
