@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-cl=$h%uvrso#=v-y)6ussue@g9w*_b^^5*w!jts4!&@4oa4y5i
 #SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'recordum-app.herokuapp.com']
 
