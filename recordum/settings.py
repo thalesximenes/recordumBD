@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-cl=$h%uvrso#=v-y)6ussue@g9w*_b^^5*w!jts4!&@4oa4y5i
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'recordum-app.herokuapp.com']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
 
 # Application definition
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'disciplinas',
+    'corsheaders',
     'usuarios',
     'whitenoise.runserver_nostatic',
 ]
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
