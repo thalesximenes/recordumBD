@@ -68,4 +68,16 @@ class cadastro(APIView):
         except:
           return Response(status = status.HTTP_500_INTERNAL_SERVER_ERROR) 
 
+class informacoes(APIView):
+    def get_informacoes(self, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            return Informacoe.objects.get(usuario = user)
+        except User.DoesNotExist:
+            raise Http404
+            
+    def get(self, request, pk):
+        informacao = self.get_informacoes(pk)
+        serializer = InformacoesSerializer(informacao)
+        return Response(serializer.data)
 # Create your views here.
