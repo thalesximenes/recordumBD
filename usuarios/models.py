@@ -16,3 +16,8 @@ class InformacoesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Informacoe
         fields = "__all__"
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email")

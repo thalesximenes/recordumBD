@@ -75,9 +75,21 @@ class informacoes(APIView):
             return Informacoe.objects.get(usuario = user)
         except User.DoesNotExist:
             raise Http404
-            
+
     def get(self, request, pk):
         informacao = self.get_informacoes(pk)
         serializer = InformacoesSerializer(informacao)
+        return Response(serializer.data)
+
+class pessoa(APIView):
+    def get_pessoa(self, pk):
+        try:
+           return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+        
+    def get(self, request, pk):
+        pessoa = self.get_pessoa(pk)
+        serializer = UserSerializer(pessoa)
         return Response(serializer.data)
 # Create your views here.

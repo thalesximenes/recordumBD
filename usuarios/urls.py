@@ -7,10 +7,16 @@ urlpatterns = [
     path('cadastro/',
          cadastro.as_view(), 
          name='cadastro'),
+
     path('login/',
          login.as_view(), 
          name='disciplinas'),
+
      path('informacao/<int:pk>',
          informacoes.as_view(), 
-         name='informacao')
+         name='informacao'),
+         
+     path('pessoa/<int:pk>',
+         pessoa.as_view(), 
+         name='informacao'),
 ]
