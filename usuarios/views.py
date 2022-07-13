@@ -42,7 +42,7 @@ class cadastro(APIView):
         user = User.objects.filter(username=username)
 
         if user.exists():
-            return Response({"response":"Usuário já existente"})
+            return Response({"response":"Usuário já existente"}, status = status.HTTP_400_BAD_REQUEST)
         
         try: 
             user = User.objects.create_user(username = username,
