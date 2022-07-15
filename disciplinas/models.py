@@ -16,7 +16,7 @@ class EixosSerializer(serializers.ModelSerializer):
 
 class Disciplinas(models.Model):
     nome = models.CharField(max_length = 100)
-    thumb = models.ImageField(upload_to = "thumb_Disciplinas")
+    thumb = models.CharField(max_length= 500)
     disciplina = models.ForeignKey(EixosTematico, on_delete = models.DO_NOTHING)
 
     def __str__(self) -> str:
